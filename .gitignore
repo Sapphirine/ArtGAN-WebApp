@@ -1,5 +1,5 @@
-Our_GAN/flower_generated
-Our_GAN/landscape_generated
-Our_GAN/__pycache__
-Our_GAN/another_dataset_generated
+tensorflow/Our_GAN/flower_generated
+tensorflow/Our_GAN/landscape_generated
+tensorflow/Our_GAN/__pycache__
+tensorflow/Our_GAN/another_dataset_generated
 .DS_Store
