@@ -6,6 +6,7 @@ tensorflow/Our_GAN/another_dataset_generated
 
 **/__pycache__
 **/.gitignore
+.DS_Store
 
 *.py[cod]
 *$py.class
