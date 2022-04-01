@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request
+from flask_cors import cross_origin
 from PIL import Image
 import base64
 import io
 import os
 import torch
+import torchvision
 from torchvision.datasets import ImageFolder
 import torchvision.transforms as tt
 import numpy as np
@@ -71,6 +73,7 @@ def recognize_image_from_user(img):
     return pred_class
 
 @app.route("/dataset")
+@cross_origin()
 def dataset():
     im = random_pic_from_db()
     #im.save('../frontend/public/images/random_image.jpg')
@@ -82,6 +85,7 @@ def dataset():
 
 
 @app.route("/model", methods=["POST"])
+@cross_origin()
 def generate_plot():
     props = request.json
     genre = int(props['genre'])
@@ -96,6 +100,7 @@ def generate_plot():
     return {"imgValue": encoded_img_data.decode('utf-8')}
 
 @app.route("/upload_img", methods=["POST"])
+@cross_origin()
 def upload_img():
     file = request.files['file']
     im = Image.open(file)
@@ -108,4 +113,4 @@ def members():
     return {"members": ['mem1', 'mem2']}
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=8080)

@@ -21,7 +21,7 @@ export default function Model() {
     const [imgCount, setImgCount] = useState(1)
 
     const postClass = () =>{
-        fetch('/model',{
+        fetch('http://100.26.137.252:8080/model',{
             'method': "POST",
             headers: {
                 'Content-Type': 'application/json'
