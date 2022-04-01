@@ -4,17 +4,16 @@ import base64
 import io
 import os
 import torch
-import torchvision
 from torchvision.datasets import ImageFolder
 import torchvision.transforms as tt
 import numpy as np
 from PIL import Image
-from reverseProxy import proxyRequest
 import json
 
 from model import *
 
-app = Flask(__name__)
+application = Flask(__name__)
+app = application
 
 
 IMG_DIR = "/Users/wuw/downloads/archive"
@@ -109,4 +108,4 @@ def members():
     return {"members": ['mem1', 'mem2']}
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
