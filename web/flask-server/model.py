@@ -4,11 +4,9 @@ import torch.nn.functional as F
 
 
 from torchvision.utils import make_grid
-from torchvision.utils import save_image
 import torchvision.transforms as tt
 import matplotlib.pyplot as plt
 import numpy as np
-from PIL import ImageFile
 
 
 image_size = 64
@@ -35,45 +33,45 @@ class Discriminator(nn.Module):
     def __init__(self):
         super().__init__()
 
-        self.conv_blocks = nn.Sequential(
+        self.disc = nn.Sequential(
           # in: 3 x 64 x 64
-          nn.Conv2d(3, 64, kernel_size=4, stride=2, padding=1, bias=False),
-          nn.BatchNorm2d(64),
-          nn.LeakyReLU(0.2, inplace=True),
+          nn.Conv2d(3, 64, kernel_size=4, stride=2, padding=1),
+          nn.LeakyReLU(0.2),
           # out: 64 x 32 x 32
 
           nn.Conv2d(64, 128, kernel_size=4, stride=2, padding=1, bias=False),
-          nn.BatchNorm2d(128),
-          nn.LeakyReLU(0.2, inplace=True),
+          nn.InstanceNorm2d(128, affine=True),
+          nn.LeakyReLU(0.2),
           # out: 128 x 16 x 16
 
           nn.Conv2d(128, 256, kernel_size=4, stride=2, padding=1, bias=False),
-          nn.BatchNorm2d(256),
-          nn.LeakyReLU(0.2, inplace=True),
+          nn.InstanceNorm2d(256, affine=True),
+          nn.LeakyReLU(0.2),
           # out: 256 x 8 x 8
 
           nn.Conv2d(256, 512, kernel_size=4, stride=2, padding=1, bias=False),
-          nn.BatchNorm2d(512),
-          nn.LeakyReLU(0.2, inplace=True),
+          nn.InstanceNorm2d(512, affine=True),
+          nn.LeakyReLU(0.2),
           # out: 512 x 4 x 4
         )
         self.flat = nn.Flatten()
-        self.adv_layer = nn.Sequential(
-            nn.Linear(512*4*4, 1),
-            nn.Sigmoid()
-        )
+
+        self.finalLayer = nn.Conv2d(512, 1, kernel_size=4, stride=2, padding=0)
+
         self.aux_layer = nn.Sequential(
-            nn.Linear(512*4*4, 10),
+            nn.Linear(512*4*4, 4096),
+            nn.ReLU(),
+            nn.Linear(4096, 1000),
+            nn.ReLU(),
+            nn.Linear(1000, 10),
         )
 
 
     def forward(self, img):
-        out = self.conv_blocks(img)
-        flat = self.flat(out)
-        
-        validity = self.adv_layer(flat)
-        label = self.aux_layer(flat)
+        out = self.disc(img)
 
+        validity = self.finalLayer(out)
+        label = self.aux_layer(self.flat(out))
         return validity, label
 
 class Generator(nn.Module):
@@ -83,21 +81,25 @@ class Generator(nn.Module):
     self.conv_block = nn.Sequential(
         nn.ConvTranspose2d(latent_size + 10, 512, kernel_size=4, stride=1, padding=0, bias=False),
         nn.BatchNorm2d(512),
-        nn.LeakyReLU(0.2, inplace=True),
+        nn.ReLU(),
+        # 512, 4, 4
 
         nn.ConvTranspose2d(512, 256, kernel_size=4, stride=2, padding=1, bias=False),
         nn.BatchNorm2d(256),
-        nn.LeakyReLU(0.2, inplace=True),
+        nn.ReLU(),
+        # 256, 8, 8
 
         nn.ConvTranspose2d(256, 128, kernel_size=4, stride=2, padding=1, bias=False),
         nn.BatchNorm2d(128),
-        nn.LeakyReLU(0.2, inplace=True),
+        nn.ReLU(),
+        # 128, 16, 16
 
         nn.ConvTranspose2d(128, 64, kernel_size=4, stride=2, padding=1, bias=False),
         nn.BatchNorm2d(64),
-        nn.LeakyReLU(0.2, inplace=True),
+        nn.ReLU(),
+        # 64, 32, 32
 
-        nn.ConvTranspose2d(64, 3, kernel_size=4, stride=2, padding=1, bias=False),
+        nn.ConvTranspose2d(64, 3, kernel_size=4, stride=2, padding=1),
         nn.Tanh(),
     )
 

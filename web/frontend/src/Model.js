@@ -2,15 +2,15 @@ import React, { useState } from 'react'
 import UploadImg from './UploadImg'
 
 const class_to_idx = {'abstract': 0,
-                'cityscape': 1,
-                'figurative': 2,
-                'flower-painting': 3,
-                'genre-painting': 4,
-                'landscape': 5,
-                'marina': 6,
-                'portrait': 7,
-                'religious-painting': 8,
-                'still-life': 9}
+                    'animal-painting': 1,
+                    'cityscape': 2,
+                    'figurative': 3,
+                    'flower-painting': 4,
+                    'genre-painting': 5,
+                    'landscape': 6,
+                    'marina': 7,
+                    'portrait': 8,
+                    'religious-painting': 9}
 
 const num = [1, 4, 16, 25, 36]
 
@@ -21,7 +21,7 @@ export default function Model() {
     const [imgCount, setImgCount] = useState(1)
 
     const postClass = () =>{
-        fetch('http://100.26.137.252:8080/model',{
+        fetch('http://75.101.224.153:8080/model',{
             'method': "POST",
             headers: {
                 'Content-Type': 'application/json'

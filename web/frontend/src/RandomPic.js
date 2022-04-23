@@ -9,7 +9,7 @@ function RandomPic() {
         }, []);
 
     const getRand = () => {
-        fetch("http://100.26.137.252:8080/dataset")
+        fetch("http://75.101.224.153:8080/dataset")
         .then(response => response.json())
         .then(data => {
             setImgValue(data['imgValue'])

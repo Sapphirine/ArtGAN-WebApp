@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react'
 import Histogram from 'react-chart-histogram'
 
 const class_to_idx = {'abstract': 0,
-                'cityscape': 1,
-                'figurative': 2,
-                'flower-painting': 3,
-                'genre-painting': 4,
-                'landscape': 5,
-                'marina': 6,
-                'portrait': 7,
-                'religious-painting': 8,
-                'still-life': 9}
+                    'animal-painting': 1,
+                    'cityscape': 2,
+                    'figurative': 3,
+                    'flower-painting': 4,
+                    'genre-painting': 5,
+                    'landscape': 6,
+                    'marina': 7,
+                    'portrait': 8,
+                    'religious-painting': 9}
 
 export default function UploadImg() {
     const [file, setFile] = useState("")
@@ -54,7 +54,7 @@ export default function UploadImg() {
         var formData = new FormData();
         formData.append("file", file)
 
-        fetch('http://100.26.137.252:8080/upload_img',{
+        fetch('http://75.101.224.153:8080/upload_img',{
             'method': "POST",
             'Access-Control-Allow-Origin': "*",
             body: formData
@@ -71,7 +71,16 @@ export default function UploadImg() {
     }
 
     const ResultHist = () => {
-        const xlabel = ['abstract', 'cityscape', 'figurative', 'flower', 'genre', 'landscape', 'marina', 'portriate', 'religious', 'still-life']
+        const xlabel = ['abstract',
+        'animal',
+        'cityscape',
+        'figurative',
+        'flower',
+        'genre',
+        'landscape',
+        'marina',
+        'portrait',
+        'religious']
         return (
             <Histogram
                 xLabels={xlabel}

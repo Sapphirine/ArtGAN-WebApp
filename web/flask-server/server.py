@@ -33,8 +33,8 @@ input_transform = tt.Compose([
 @app.before_first_request
 def init():
     print("here")
-    G_net.load_state_dict(torch.load("models/g_model_150", map_location=device))
-    D_net.load_state_dict(torch.load("models/d_model_150", map_location=device))
+    G_net.load_state_dict(torch.load("models/g_model", map_location=device))
+    D_net.load_state_dict(torch.load("models/d_model", map_location=device))
 
 
 
@@ -99,14 +99,21 @@ def generate_plot():
 
     return {"imgValue": encoded_img_data.decode('utf-8')}
 
-@app.route("/upload_img", methods=["POST"])
+@app.route("/upload_img", methods=["GET", "POST"])
 @cross_origin()
 def upload_img():
-    file = request.files['file']
-    im = Image.open(file)
-    pred_class = recognize_image_from_user(im).squeeze(0)
-    winner = torch.argmax(pred_class)
-    return {"pred": pred_class.tolist(),"winner": winner.item()}
+    if request.method == 'POST':
+        file = request.files['file']
+        im = Image.open(file)
+        pred_class = recognize_image_from_user(im).squeeze(0)
+        winner = torch.argmax(pred_class)
+        return {"pred": pred_class.tolist(),"winner": winner.item()}
+    else:
+        img = Image.open("sample_pic.jpg")
+        data = io.BytesIO()
+        img.save(data, 'JPEG')
+        encoded_img_data = base64.b64encode(data.getvalue())
+        return {"imgValue": encoded_img_data}
 
 @app.route("/members", methods=['POST'])
 def members():
