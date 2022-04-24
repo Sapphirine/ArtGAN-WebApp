@@ -64,7 +64,7 @@ export default function Model() {
             .map(([key, value]) => <option key={"class_"+value} value={value}>{key}</option>)
             }
         </select>
-                
+
     const NumDropdown = () =>
         <select name="Count" value={imgCount} onChange={handleCountSelect}>
             {
@@ -86,9 +86,9 @@ export default function Model() {
             <form onSubmit={handleSubmit}>
                 <label>Choose a class  </label>
                 <ClassesDropdown />
-                <br />
-                <label>No. of images  </label><NumDropdown /><br />
-                <input type="submit" value="Send Form"></input>
+                <br /><br />
+                <label>No. of images  </label><NumDropdown /><br /><br />
+                <input type="submit" value="Start Creating!"></input>
             </form>
         </div>
     )

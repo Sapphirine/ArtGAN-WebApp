@@ -99,7 +99,7 @@ export default function UploadImg() {
                 <label>Upload an image you want to classify...</label>
                 <div>
                     <input type='file' accept="image/*" onChange={handleImageChange}></input>
-                    <button type="submit" >Upload...</button>
+                    <button type="submit" class='model'>Upload...</button>
                 </div>
                 <br />
                 { showImg && <img src={image} style={{width, height}} alt="Uploaded..."/> }

@@ -29,7 +29,8 @@ function RandomPic() {
                 <NextRand /> <br />
             </>
             }
-            <button onClick={getRand}>refresh</button>
+            <br />
+            <button class="model" onClick={getRand}>refresh</button>
         </div>
     )
   }

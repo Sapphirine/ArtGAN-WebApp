@@ -9,13 +9,16 @@ import Model from './Model'
 function App() {
   return (
     <div className="App">
-      <h1> Welcome to the ArtGAN </h1>
+      <h1> Welcome to ArtGAN </h1>
+      <p class='intro'> Create incredible art image using only a short description. 
+        Our great ArtGAN model will help generate amazing AI art for you. </p>
+      
       <BrowserRouter>
         <nav>
-          <ul>
-          <li> <Link to="/dataset">dataset</Link></li>
-          <li><Link to="/model">model</Link></li>
-          </ul>
+          <Link to="/dataset"><button>Dataset</button></Link>
+          <br />
+          <br />
+          <Link to="/model"><button>Model</button></Link>
         </nav>
 
         <Routes>
