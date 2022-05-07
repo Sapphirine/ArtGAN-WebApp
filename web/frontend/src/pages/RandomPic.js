@@ -24,6 +24,8 @@ function RandomPic() {
   
     return (
         <div>
+            <p> This page shows some of the training data for our model. Please click the refresh button and have some insight!</p><br />
+
             {showImg && 
             <>
                 <NextRand /> <br />
