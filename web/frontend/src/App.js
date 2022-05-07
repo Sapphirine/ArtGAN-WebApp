@@ -1,32 +1,26 @@
 import './App.css';
 import React from 'react'
+import Navbar from './components/Navbar';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
 
 
-import RandomPic from './RandomPic';
-import Model from './Model'
+import RandomPic from './pages/RandomPic';
+import Model from './pages/Model';
+import Main from './pages/Main';
 
 function App() {
   return (
     <div className="App">
-      <h1> Welcome to ArtGAN </h1>
-      <p class='intro'> Create incredible art image using only a short description. 
-        Our great ArtGAN model will help generate amazing AI art for you. </p>
-      
       <BrowserRouter>
-        <nav>
-          <Link to="/dataset"><button>Dataset</button></Link>
-          <br />
-          <br />
-          <Link to="/model"><button>Model</button></Link>
-        </nav>
-
+        <Navbar />
         <Routes>
-          <Route path="/dataset" element={<RandomPic />}/>
-          <Route path="/model" element={<Model />}/>
+          <Route path='/' element={<Main />}/>
+          <Route path='/dataset' element={<RandomPic />}/>
+          <Route path='/model' element={<Model />}/>
         </Routes>
       </BrowserRouter>
     </div>
   )
 }
 export default App;
+

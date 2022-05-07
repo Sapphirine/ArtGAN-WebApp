@@ -11,11 +11,13 @@
     "react-chart-histogram": "^0.2.4",
     "react-dom": "^17.0.2",
     "react-google-charts": "^4.0.0",
+    "react-icons": "^4.3.1",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
+    "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "http://75.101.224.153:8080",
+  "proxy": "http://localhost:8080/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -23,7 +25,11 @@
     "eject": "react-scripts eject",
     "deploy": "aws s3 sync build/ s3://gan-frontend-react"
   },
-  "eslintConfig": { "extends": [ "react-app" ] },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",

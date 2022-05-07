@@ -76,7 +76,6 @@ def recognize_image_from_user(img):
 @cross_origin()
 def dataset():
     im = random_pic_from_db()
-    #im.save('../frontend/public/images/random_image.jpg')
     data = io.BytesIO()
     im.save(data, "JPEG")
     encoded_img_data = base64.b64encode(data.getvalue())
@@ -110,12 +109,18 @@ def upload_img():
         return {"pred": pred_class.tolist(),"winner": winner.item()}
     else:
         img = Image.open("sample_pic.jpg")
+        print("jjj")
         data = io.BytesIO()
         img.save(data, 'JPEG')
         encoded_img_data = base64.b64encode(data.getvalue())
         return {"imgValue": encoded_img_data}
 
-@app.route("/members", methods=['POST'])
+@app.route("/vqgan_clip", methods=["GET", "POST"])
+@cross_origin()
+def vqgan_clip():
+    pass
+
+@app.route("/members", methods=['POST', 'GET'])
 def members():
     return {"members": ['mem1', 'mem2']}
 

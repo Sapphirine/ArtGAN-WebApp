@@ -54,7 +54,7 @@ export default function UploadImg() {
         var formData = new FormData();
         formData.append("file", file)
 
-        fetch('http://75.101.224.153:8080/upload_img',{
+        fetch('/upload_img',{
             'method': "POST",
             'Access-Control-Allow-Origin': "*",
             body: formData
